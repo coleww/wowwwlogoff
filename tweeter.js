@@ -18,10 +18,25 @@ client.lpop('wowwwlogoff', function (err, userEvent) {
     throw "a party"
   } else if (userEvent !== null) {
     var t = JSON.parse(userEvent)
-    // DO THE MAGICS NOW
-
-
-
+    switch (t.event) {
+      case "follow":
+        T.post('friendships/create', {screen_name: t.target}, function (e, d, r){
+          console.log("FRIENDED", t.target)
+          // close connection and program
+          client.end()
+          throw "a party"
+        })
+        break;
+      case "tweet":
+        if (Math.random() < 0.05) {
+          T.post('statuses/update', {status: '@' + t.target + ' wow, logoff', in_reply_to_status_id: t.id_str}, function (err, data, response) {
+            console.log("REPLIED", t.target)
+            client.end()
+            throw "a party"
+          })
+          break;
+        }
+      }
   } else {
     // OH, OF COURSE!
     client.end()
