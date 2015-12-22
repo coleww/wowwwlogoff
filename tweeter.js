@@ -28,7 +28,7 @@ client.lpop('wowwwlogoff', function (err, userEvent) {
         break;
       case "tweet":
         
-          T.post('statuses/update', {status: '@' + t.target + ' wow, log off', in_reply_to_status_id: t.id_str}, function (err, data, response) {
+          T.post('statuses/update', {status: '@' + t.target + ' wowww, log off', in_reply_to_status_id: t.id_str}, function (err, data, response) {
             console.log("REPLIED", t.target)
             client.end()
             throw "a party"
