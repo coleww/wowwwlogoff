@@ -7,5 +7,6 @@ module.exports = {
   },
   botName: 'wowwwlogoff', // DOUBLEHECK THAT!!!
   replyInterval: 1000 * 60 * 3,
-  live: true
+  live: true,
+  prob: 0.05
 }
