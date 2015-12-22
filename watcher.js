@@ -13,6 +13,7 @@ stream.on('message', function (t) {
   // and make a util module with handlers for each of them.
   // if the handler returns an obj, push it to the queue, else, do nothing?
   // if (t.event == 'follow')
+  if (t.source.screen_name !== config.botName) {
   switch (t.event) {
     case "follow":
       console.log("Oranges are $0.59 a pound.");
@@ -36,6 +37,6 @@ stream.on('message', function (t) {
     // default:
     //   console.log("Sorry, we are out of " + expr + ".");
   }
-
+}
 
 })
