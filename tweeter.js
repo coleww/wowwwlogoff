@@ -6,7 +6,6 @@ var fs = require('fs')
 var redis = require('redis')
 var client = redis.createClient()
 
-var request = require('request-json')
 var replyInterval = config.replyInterval
 
 
@@ -28,7 +27,7 @@ client.lpop('wowwwlogoff', function (err, userEvent) {
         })
         break;
       case "tweet":
-        if (Math.random() < 0.05) {
+        if (Math.random() < config.prob) {
           T.post('statuses/update', {status: '@' + t.target + ' wow, logoff', in_reply_to_status_id: t.id_str}, function (err, data, response) {
             console.log("REPLIED", t.target)
             client.end()
