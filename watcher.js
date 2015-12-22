@@ -4,42 +4,19 @@ var T = new Twit(config.twitter)
 var stream = T.stream('user')
 var redis = require('redis')
 var client = redis.createClient()
+var tipots = require('this-is-probably-ok-to-say')
 
 stream.on('tweet', function (t) {
-        if (Math.random() < config.prob) {
-      client.rpush('wowwwlogoff', JSON.stringify({event: 'tweet', target: t.user.screen_name, id_str: t.id_str}), redis.print)
-      console.log("Apples are $0.32 a pound.");
-      }
+  if (t.user.screen_name !== config.botName && tipots(t.text) && Math.random() < config.prob) {
+    client.rpush('wowwwlogoff', JSON.stringify({event: 'tweet', target: t.user.screen_name, id_str: t.id_str}), redis.print)
+    console.log("Apples are $0.32 a pound.");
+  }
 })
 
 stream.on('message', function (t) {
   console.log(t)
-
-
-  // some big switch case statement here for all the event things we need to handle,
-  // and make a util module with handlers for each of them.
-  // if the handler returns an obj, push it to the queue, else, do nothing?
-  // if (t.event == 'follow')
-  if (t.source.screen_name !== config.botName) {
-  switch (t.event) {
-    case "follow":
-      console.log("Oranges are $0.59 a pound.");
-      client.rpush('wowwwlogoff', JSON.stringify({event: t.event, target: t.source.screen_name, id_str: t.source.id_str}), redis.print)
-
-      break;
-    // case "Bananas":
-    //   console.log("Bananas are $0.48 a pound.");
-    //   break;
-    // case "Cherries":
-    //   console.log("Cherries are $3.00 a pound.");
-    //   break;
-    // case "Mangoes":
-    // case "Papayas":
-    //   console.log("Mangoes and papayas are $2.79 a pound.");
-    //   break;
-    // default:
-    //   console.log("Sorry, we are out of " + expr + ".");
+  if (t.source.screen_name !== config.botName && t.event == 'follow') {
+    console.log("Oranges are $0.59 a pound.");
+    client.rpush('wowwwlogoff', JSON.stringify({event: t.event, target: t.source.screen_name, id_str: t.source.id_str}), redis.print)
   }
-}
-
 })

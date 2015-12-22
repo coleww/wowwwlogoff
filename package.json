@@ -10,6 +10,7 @@
     "forever": "^0.15.1",
     "level": "^1.4.0",
     "redis": "^2.3.0",
+    "this-is-probably-ok-to-say": "^1.0.9",
     "twit": "^2.1.0"
   },
   "license": "MIT",
