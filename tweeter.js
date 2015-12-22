@@ -27,14 +27,14 @@ client.lpop('wowwwlogoff', function (err, userEvent) {
         })
         break;
       case "tweet":
-        if (Math.random() < config.prob) {
+        
           T.post('statuses/update', {status: '@' + t.target + ' wow, logoff', in_reply_to_status_id: t.id_str}, function (err, data, response) {
             console.log("REPLIED", t.target)
             client.end()
             throw "a party"
           })
           break;
-        }
+        
       }
   } else {
     // OH, OF COURSE!
