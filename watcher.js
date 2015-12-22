@@ -21,8 +21,10 @@ stream.on('message', function (t) {
 
       break;
     case "tweet":
+      if (Math.random() < config.prob) {
       client.rpush('wowwwlogoff', JSON.stringify({event: t.event, target: t.source.screen_name, id_str: t.source.id_str}), redis.print)
       console.log("Apples are $0.32 a pound.");
+      }
       break;
     // case "Bananas":
     //   console.log("Bananas are $0.48 a pound.");
