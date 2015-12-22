@@ -15,7 +15,7 @@ stream.on('tweet', function (t) {
 
 stream.on('message', function (t) {
   console.log(t)
-  if (t.source.screen_name !== config.botName && t.event == 'follow') {
+  if (t.source && t.source.screen_name !== config.botName && t.event == 'follow') {
     console.log("Oranges are $0.59 a pound.");
     client.rpush('wowwwlogoff', JSON.stringify({event: t.event, target: t.source.screen_name, id_str: t.source.id_str}), redis.print)
   }
